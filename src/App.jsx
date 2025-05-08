@@ -6,6 +6,8 @@ import {
   TextField,
   Heading,
   Flex,
+  Label,
+  Input,
   View,
   Image,
   Grid,
@@ -17,6 +19,7 @@ import { getUrl } from "aws-amplify/storage";
 import { uploadData } from "aws-amplify/storage";
 import { generateClient } from "aws-amplify/data";
 import outputs from "../amplify_outputs.json";
+import PassCode from "./PassCode.jsx";
 /**
  * @type {import('aws-amplify/data').Client<import('../amplify/data/resource').Schema>}
  */
@@ -99,7 +102,13 @@ export default function App() {
           width="70%"
           margin="0 auto"
         >
-          <Heading level={1}>My Notes App</Heading>
+          <Heading level={1}>Treasure Trail Game Engine </Heading>
+           <Heading level={2}>Passcode</Heading>
+           <Text color="font.tertiary">plays video automatically after password 1234 is entered.</Text>
+<PassCode/>
+         
+
+          <Heading level={2}>Create Event</Heading>
           <View as="form" margin="3rem 0" onSubmit={createNote}>
             <Flex
               direction="column"
@@ -109,20 +118,40 @@ export default function App() {
             >
               <TextField
                 name="name"
-                placeholder="Note Name"
-                label="Note Name"
+                placeholder="Event Name"
+                label="Event Name"
                 labelHidden
                 variation="quiet"
                 required
               />
               <TextField
                 name="description"
-                placeholder="Note Description"
-                label="Note Description"
+                placeholder="Event Description"
+                label="Event Description"
                 labelHidden
                 variation="quiet"
                 required
               />
+          
+          <Flex direction="column" gap="small">
+  <Label htmlFor="startDate">Enter start date</Label>
+  <Input
+    id="startDate"
+    type="date"
+    required
+  />
+</Flex>
+<Flex direction="column" gap="small">
+  <Label htmlFor="endDate">Enter end date</Label>
+  <Input
+    id="endDate"
+    type="date"
+    required 
+
+  />
+</Flex>
+
+
               <View
                 name="image"
                 as="input"
@@ -132,12 +161,12 @@ export default function App() {
               />
 
               <Button type="submit" variation="primary">
-                Create Note
+                Create Event
               </Button>
             </Flex>
           </View>
           <Divider />
-          <Heading level={2}>Current Notes</Heading>
+          <Heading level={2}>Events</Heading>
           <Grid
             margin="3rem 0"
             autoFlow="column"
@@ -172,7 +201,7 @@ export default function App() {
                   variation="destructive"
                   onClick={() => deleteNote(note)}
                 >
-                  Delete note
+                  Delete event
                 </Button>
               </Flex>
             ))}
